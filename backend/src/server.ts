@@ -1,8 +1,8 @@
-import express from 'express';
-const app = express();
-const port = 5000;
+import express, {Request, Response, Express} from 'express';
+const app : Express = express();
+const port : number | string = 5000;
 
-app.get("/", (req: any, res: any) => {
+app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to the Node.js Express Server!");
 })
 
