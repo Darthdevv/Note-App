@@ -6,6 +6,7 @@ import connectToMongoDB from "./db/connection";
 import cors from "cors";
 import userRouter from "./routes/user.routes";
 import noteRouter from "./routes/note.routes";
+import { globalErrorHandler, notFound } from "./middlewares/error/error.middleware";
 
 // Handle uncaught exceptions
 process.on("uncaughtException", (err) => {

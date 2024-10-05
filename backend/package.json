@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "dist/server.js",
   "scripts": {
-    "server": "nodemon src/server.ts",
+    "server": "NODE_ENV = production node dist/server.js",
     "start": "tsc-watch --outDir ./dist --onSuccess \"node .\""
   },
   "type": "commonjs",
