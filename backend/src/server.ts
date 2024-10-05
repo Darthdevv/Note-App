@@ -7,6 +7,7 @@ import cors from "cors";
 import userRouter from "./routes/user.routes";
 import noteRouter from "./routes/note.routes";
 import { globalErrorHandler, notFound } from "./middlewares/error/error.middleware";
+import morgan from "morgan";
 
 // Handle uncaught exceptions
 process.on("uncaughtException", (err) => {
@@ -19,6 +20,7 @@ const app: Express = express();
 const port: number | string = env.PORT || 8000;
 
 // Middleware setup
+app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
