@@ -3,12 +3,26 @@ import { Note } from "../models/note.model";
 import APIFeatures from "../utils/apiFeatures";
 import AppError from "../utils/appError";
 import { catchAsync } from "../helpers/catchAsync";
+import mongoose from "mongoose";
+
+interface Notebody {
+  title?: string;
+  content?: string;
+}
+
+interface NoteId {
+  id: string;
+}
 
 /**
  * @api {POST} /notes create note
  */
 export const addNote = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (
+    req: Request<unknown, unknown, Notebody, unknown>,
+    res: Response,
+    next: NextFunction
+  ) => {
     const { title, content } = req.body;
 
     if (!title || !content) {
@@ -59,6 +73,11 @@ export const getNotes : RequestHandler = catchAsync(
 export const getNote = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
+
+    if (!mongoose.isValidObjectId(id)) {
+      return next(new AppError("Invalid Note Id.", 400));
+    }
+
     const note = await Note.findById(id);
 
     if (!note) {
@@ -70,11 +89,16 @@ export const getNote = catchAsync(
 );
 
 /**
- * @api {PATCH} /notes/:id update specific note
+ * @api {PUT} /notes/:id update specific note
  */
 export const updateNote = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
+
+    if (!mongoose.isValidObjectId(id)) {
+      return next(new AppError("Invalid Note Id.", 400));
+    }
+
     const { title, content } = req.body;
 
     if (!title || !content ) {
@@ -95,6 +119,43 @@ export const updateNote = catchAsync(
     }
 
     res.status(200).json({ updatedNote });
+  }
+);
+
+/**
+ * @api {PATCH} /notes/:id change note's title or content
+ */
+export const changeTitleOrContent = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    if (!mongoose.isValidObjectId(id)) {
+      return next(new AppError("Invalid Note Id.", 400));
+    }
+
+    const note = await Note.findById(id);
+
+    if (!note) {
+      return next(new AppError("Note not found", 404));
+    }
+
+    const { title, content } = req.body;
+
+    if (title) {
+      note.title = title;
+    }
+
+    if (content) {
+      note.content = content;
+    }
+
+    await note.save();
+
+    res.status(200).json({
+      status: "success",
+      message: "Note updated successfully",
+      data: note,
+    });
   }
 );
 
