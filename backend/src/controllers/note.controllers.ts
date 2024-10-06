@@ -11,7 +11,7 @@ interface Notebody {
 }
 
 interface NoteId {
-  id: string;
+  id?: string;
 }
 
 /**
@@ -71,7 +71,7 @@ export const getNotes : RequestHandler = catchAsync(
  * @api {GET} /notes/:id retreive specific note by id
  */
 export const getNote = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request<NoteId, unknown, unknown, unknown>, res: Response, next: NextFunction) => {
     const { id } = req.params;
 
     if (!mongoose.isValidObjectId(id)) {
@@ -92,7 +92,7 @@ export const getNote = catchAsync(
  * @api {PUT} /notes/:id update specific note
  */
 export const updateNote = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request< NoteId, unknown, Notebody, unknown>, res: Response, next: NextFunction) => {
     const { id } = req.params;
 
     if (!mongoose.isValidObjectId(id)) {
@@ -126,7 +126,7 @@ export const updateNote = catchAsync(
  * @api {PATCH} /notes/:id change note's title or content
  */
 export const changeTitleOrContent = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request<NoteId, unknown, Notebody, unknown>, res: Response, next: NextFunction) => {
     const { id } = req.params;
 
     if (!mongoose.isValidObjectId(id)) {
@@ -163,7 +163,7 @@ export const changeTitleOrContent = catchAsync(
  * @api {DELETE} /notes/:id delete specific note
  */
 export const deleteNote = catchAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
+  async (req: Request<NoteId, unknown, unknown, unknown>, res: Response, next: NextFunction) => {
     const { id } = req.params;
 
     if (!mongoose.isValidObjectId(id)) {
@@ -176,7 +176,7 @@ export const deleteNote = catchAsync(
 
     await Note.findByIdAndDelete(id);
 
-    res.status(204).json({ message: "Book deleted successfully." });
+    res.sendStatus(204);
   }
 );
 
@@ -187,6 +187,6 @@ export const deleteAllNotes = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     await Note.deleteMany({});
 
-    res.status(204).json({ message: "All notes deleted successfully." });
+    res.sendStatus(204);
   }
 );
