@@ -166,6 +166,10 @@ export const deleteNote = catchAsync(
   async (req: Request, res: Response, next: NextFunction) => {
     const { id } = req.params;
 
+    if (!mongoose.isValidObjectId(id)) {
+      return next(new AppError("Invalid Note Id.", 400));
+    }
+
     if (!id) {
       return next(new AppError("Note unavailable.", 400));
     }
@@ -173,5 +177,16 @@ export const deleteNote = catchAsync(
     await Note.findByIdAndDelete(id);
 
     res.status(204).json({ message: "Book deleted successfully." });
+  }
+);
+
+/**
+ * @api {DELETE} /notes delete all notes
+ */
+export const deleteAllNotes = catchAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    await Note.deleteMany({});
+
+    res.status(204).json({ message: "All notes deleted successfully." });
   }
 );
