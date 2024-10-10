@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
+import Home from "./pages/Home/Home";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Card />
         <Card />
       </div>
+      <Home/>
     </>
   );
 }

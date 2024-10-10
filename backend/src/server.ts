@@ -21,7 +21,7 @@ const port: number | string = env.PORT || 8000;
 
 // Middleware setup
 app.use(morgan("dev"));
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173",credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

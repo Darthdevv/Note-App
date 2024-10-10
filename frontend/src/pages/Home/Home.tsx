@@ -1,8 +1,10 @@
-
+import Notes from "../../components/Notes"
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <Notes/>
+    </div>
   )
 }
 
