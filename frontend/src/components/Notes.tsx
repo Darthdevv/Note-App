@@ -23,6 +23,8 @@ const Notes = () => {
             _id: item._id,
             title: item.title,
             content: item.content,
+            createdAt: item.createdAt,
+            updatedAt: item.updatedAt,
           })
         );
         setNotes(fetchedNotes); // Set the notes state
@@ -51,14 +53,16 @@ const Notes = () => {
       ) : error ? (
         <p>{error}</p> // Show error if any
       ) : (
-        <ul>
+        <div>
           {notes.map((note) => (
-            <li key={note._id}>
+            <div key={note._id}>
               <h2>{note.title}</h2>
               <p>{note.content}</p>
-            </li>
+              <p>{note.createdAt}</p>
+              <p>{note.updatedAt}</p>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );
