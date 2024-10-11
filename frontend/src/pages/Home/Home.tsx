@@ -2,7 +2,7 @@ import Notes from "../../components/Notes"
 
 const Home = () => {
   return (
-    <div>
+    <div className="p-10">
       <Notes/>
     </div>
   )

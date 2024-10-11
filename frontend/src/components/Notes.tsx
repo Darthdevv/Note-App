@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react'
 import { apiClientHandler } from '../utils/ApiMethodHandler';
-import { Note } from '../types/note';
+import { Note as NoteType } from '../types/note';
+import Note from './Note';
 
 const Notes = () => {
-  const [notes, setNotes] = useState<Note[]>([]); // State to hold notes
+  const [notes, setNotes] = useState<NoteType[]>([]); // State to hold notes
   const [loading, setLoading] = useState<boolean>(true); // State to show loading
   const [error, setError] = useState<string | null>(null); // State to handle error
 
   // Fetch notes function
-  const GetAllNotes = async () => {
+  const GetNotes = async () => {
     try {
       // Fetch notes from the API
       const apiResponse = await apiClientHandler({
@@ -18,8 +19,8 @@ const Notes = () => {
       })("GET");
 
       if ( apiResponse?.data) {
-        const fetchedNotes: Note[] = apiResponse.data.data.notes.map(
-          (item: Note) => ({
+        const fetchedNotes: NoteType[] = apiResponse.data.data.notes.map(
+          (item: NoteType) => ({
             _id: item._id,
             title: item.title,
             content: item.content,
@@ -42,25 +43,20 @@ const Notes = () => {
   // Call GetAllNotes when needed (e.g., useEffect or button click)
 
   useEffect(() => {
-    GetAllNotes();
+    GetNotes();
   }, []);
 
   return (
     <div>
-      <h1>Notes</h1>
+      <h1 className="text-center text-white">Notes</h1>
       {loading ? (
         <p>Loading notes...</p> // Show loading state
       ) : error ? (
         <p>{error}</p> // Show error if any
       ) : (
-        <div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 m-4">
           {notes.map((note) => (
-            <div key={note._id}>
-              <h2>{note.title}</h2>
-              <p>{note.content}</p>
-              <p>{note.createdAt}</p>
-              <p>{note.updatedAt}</p>
-            </div>
+            <Note key={note._id} note={note} />
           ))}
         </div>
       )}
@@ -69,3 +65,4 @@ const Notes = () => {
 }
 
 export default Notes
+
