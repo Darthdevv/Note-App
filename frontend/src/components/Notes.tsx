@@ -48,7 +48,7 @@ const Notes = () => {
 
   return (
     <div>
-      <h1 className="text-center text-white">Notes</h1>
+      {/* <h1 className="text-start text-white">Notes</h1> */}
       {loading ? (
         <p>Loading notes...</p> // Show loading state
       ) : error ? (

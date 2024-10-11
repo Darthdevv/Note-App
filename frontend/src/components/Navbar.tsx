@@ -2,19 +2,19 @@ import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <header className="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-[#171717] border border-[#2B2B2B] text-sm py-3">
+    <header className="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-[#F7F18A] border border-[#F2D161] text-sm py-3">
       <nav className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between">
         <div className="flex items-center justify-between">
           <Link
-            className="flex-none text-xl font-semibold text-white focus:outline-none focus:opacity-80"
+            className="flex-none text-xl font-semibold text-[black] focus:outline-none focus:opacity-80"
             to="/"
           >
-            NoteVault
+            EverNote
           </Link>
           <div className="sm:hidden">
             <button
               type="button"
-              className="hs-collapse-toggle relative size-7 flex justify-center items-center gap-2 rounded-lg border border-white/20 font-medium bg-blue-600 text-white shadow-sm align-middle hover:bg-white/10 focus:outline-none focus:bg-white/10 text-sm"
+              className="hs-collapse-toggle relative size-7 flex justify-center items-center gap-2 rounded-lg border border-[#F2D161] font-medium bg-[#F7F18A] text-[black] shadow-sm align-middle focus:outline-none text-sm"
               id="hs-navbar-primary-collapse"
               aria-expanded="false"
               aria-controls="hs-navbar-primary"
@@ -62,14 +62,14 @@ const Navbar = () => {
         >
           <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
             <NavLink
-              className="font-medium text-white focus:outline-none"
+              className="font-medium text-[black] focus:outline-none"
               to="login"
               aria-current="page"
             >
               Login
             </NavLink>
             <NavLink
-              className="font-medium text-gray-300 hover:text-white focus:outline-none focus:text-white"
+              className="font-medium text-[black]  focus:outline-none "
               to="register"
             >
               Register

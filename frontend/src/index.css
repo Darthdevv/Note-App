@@ -5,7 +5,21 @@
 
 
 body{
-  background-color: #171717;
+  background-color: cornsilk;
   min-height: 100vh;
   font-family: "Inter", sans-serif;
+}
+
+.note {
+  transition: box-shadow .2s ease-in-out;
+  cursor: pointer;
+}
+
+.note:hover{
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.note-body{
+  overflow: hidden;
+  mask-image: linear-gradient(180deg, #000 60%, transparent);
 }
