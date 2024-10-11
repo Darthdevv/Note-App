@@ -1,16 +1,16 @@
-
+import { Link, NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
     <header className="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-[#171717] border border-[#2B2B2B] text-sm py-3">
       <nav className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between">
         <div className="flex items-center justify-between">
-          <a
+          <Link
             className="flex-none text-xl font-semibold text-white focus:outline-none focus:opacity-80"
-            href="#"
+            to="/"
           >
-            Brand
-          </a>
+            NoteVault
+          </Link>
           <div className="sm:hidden">
             <button
               type="button"
@@ -29,9 +29,9 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <line x1="3" x2="21" y1="6" y2="6" />
                 <line x1="3" x2="21" y1="12" y2="12" />
@@ -45,9 +45,9 @@ const Navbar = () => {
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
                 <path d="M18 6 6 18" />
                 <path d="m6 6 12 12" />
@@ -61,31 +61,19 @@ const Navbar = () => {
           aria-labelledby="hs-navbar-primary-collapse"
         >
           <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
-            <a
+            <NavLink
               className="font-medium text-white focus:outline-none"
-              href="#"
+              to="login"
               aria-current="page"
             >
-              Landing
-            </a>
-            <a
+              Login
+            </NavLink>
+            <NavLink
               className="font-medium text-gray-300 hover:text-white focus:outline-none focus:text-white"
-              href="#"
+              to="register"
             >
-              Account
-            </a>
-            <a
-              className="font-medium text-gray-300 hover:text-white focus:outline-none focus:text-white"
-              href="#"
-            >
-              Work
-            </a>
-            <a
-              className="font-medium text-gray-300 hover:text-white focus:outline-none focus:text-white"
-              href="#"
-            >
-              Blog
-            </a>
+              Register
+            </NavLink>
           </div>
         </div>
       </nav>
