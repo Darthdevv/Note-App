@@ -14,7 +14,7 @@ const Notes = () => {
     setTitle(e.target.value);
   };
 
-  const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
@@ -169,8 +169,7 @@ const Notes = () => {
               >
                 Content
               </label>
-              <input
-                type="text"
+              <textarea
                 id="input-label"
                 onChange={handleContentChange}
                 value={content}
