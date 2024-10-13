@@ -94,16 +94,18 @@ const Notes = () => {
   return (
     <div>
       {/* <h1 classNameName="text-start text-white">Notes</h1> */}
-      <button
-        type="button"
-        className="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
-        aria-haspopup="dialog"
-        aria-expanded="false"
-        aria-controls="hs-focus-management-modal"
-        data-hs-overlay="#hs-focus-management-modal"
-      >
-        Open modal
-      </button>
+      <div className='flex justify-end mr-[17px]'>
+        <button
+          type="button"
+          className="py-2 note px-4 inline-flex  gap-x-2 text-xl font-medium rounded-lg border border-transparent bg-[#F2D161] hover:bg-[#ffd54b] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50 disabled:pointer-events-none"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="hs-focus-management-modal"
+          data-hs-overlay="#hs-focus-management-modal"
+        >
+          +
+        </button>
+      </div>
 
       <div
         id="hs-focus-management-modal"
@@ -113,17 +115,17 @@ const Notes = () => {
         aria-labelledby="hs-focus-management-modal-label"
       >
         <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
-          <div className="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
-            <div className="flex justify-between items-center py-3 px-4 border-b dark:border-neutral-700">
+          <div className="flex flex-col bg-[cornsilk] border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
+            <div className="flex justify-between items-center py-3 px-4 border-b border-[#F2D161]">
               <h3
                 id="hs-focus-management-modal-label"
                 className="font-bold text-gray-800 dark:text-white"
               >
-                Modal title
+                Add Note
               </h3>
               <button
                 type="button"
-                className="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-transparent bg-gray-100 text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-400 dark:focus:bg-neutral-600"
+                className="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-[#F2D161] bg-white text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-400 dark:focus:bg-neutral-600"
                 aria-label="Close"
                 data-hs-overlay="#hs-focus-management-modal"
               >
@@ -157,7 +159,7 @@ const Notes = () => {
                 id="input-label"
                 onChange={handleTitleChange}
                 value={title}
-                className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-neutral-400"
+                className="py-3 px-4 block w-full border border-[#F2D161] rounded-lg text-sm focus:border-[#ffd54b] focus:ring-[#ffd54b] dark:bg-neutral-900 dark:placeholder-neutral-500 dark:text-neutral-400"
                 placeholder="you@site.com"
                 autoFocus={true}
               />
@@ -173,23 +175,23 @@ const Notes = () => {
                 id="input-label"
                 onChange={handleContentChange}
                 value={content}
-                className="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-neutral-700 dark:placeholder-neutral-500 dark:text-neutral-400"
+                className="py-3 px-4 block w-full border border-[#F2D161] rounded-lg text-sm focus:border-[#ffd54b] focus:ring-[#ffd54b] dark:bg-neutral-90 dark:placeholder-neutral-500 dark:text-neutral-400"
                 placeholder="you@site.com"
                 autoFocus={true}
               />
             </div>
-            <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-neutral-700">
+            <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t border-[#F2D161]">
               <button
                 type="button"
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-[#F2D161] bg-white text-black shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                 data-hs-overlay="#hs-focus-management-modal"
               >
                 Close
               </button>
               <button
-                onClick={ AddNote}
+                onClick={AddNote}
                 type="button"
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[#F2D161] hover:bg-[#ffd54b] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50 disabled:pointer-events-none"
               >
                 Add
               </button>
