@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { apiClientHandler } from '../utils/ApiMethodHandler';
 import { Note as NoteType } from '../types/note';
+import Loader from './Loader';
 import Note from './Note';
 
 const Notes = () => {
@@ -94,7 +95,7 @@ const Notes = () => {
   return (
     <div>
       {/* <h1 classNameName="text-start text-white">Notes</h1> */}
-      <div className='flex justify-end mr-[17px]'>
+      <div className="flex justify-end mr-[17px]">
         <button
           type="button"
           className="py-2 note px-4 inline-flex  gap-x-2 text-xl font-medium rounded-lg border border-transparent bg-[#F2D161] hover:bg-[#ffd54b] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50 disabled:pointer-events-none"
@@ -200,7 +201,7 @@ const Notes = () => {
         </div>
       </div>
       {loading ? (
-        <p>Loading notes...</p> // Show loading state
+        <Loader/>// Show loading state
       ) : error ? (
         <p>{error}</p> // Show error if any
       ) : (

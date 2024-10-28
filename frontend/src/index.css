@@ -23,3 +23,25 @@ body{
   overflow: hidden;
   mask-image: linear-gradient(180deg, #000 60%, transparent);
 }
+
+/* For Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;               /* Narrow width for pill shape */
+}
+
+::-webkit-scrollbar-track {
+  background: cornsilk;           /* Background color of the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #F2D161;     /* Color of the scrollbar thumb */
+  border-radius: 20px;        /* High border-radius for pill shape */
+  border: 2px solid cornsilk;     /* Optional padding around the thumb */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;      /* Makes the scrollbar thinner */
+  scrollbar-color: #F2D161 cornsilk; /* Thumb color and track color */
+}
