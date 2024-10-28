@@ -1,11 +1,15 @@
 import { Note as NoteType } from "../types/note";
 import { formatDate } from "../utils/formatDate";
+import { MdDelete } from "react-icons/md";
+import { MdEdit } from "react-icons/md";
 
-interface NoteProps  {
-  note: NoteType,
+interface NoteProps {
+  note: NoteType;
+  id: string;
+  onDelete: (noteId: string) => Promise<void>; // Type for DeleteNote function
 }
 
-const Note = ({ note }: NoteProps) => {
+const Note = ({ note, id, onDelete }: NoteProps) => {
 
   const { title, content, updatedAt, createdAt } = note;
 
@@ -27,10 +31,19 @@ const Note = ({ note }: NoteProps) => {
           {content}
         </p>
       </div>
-      <div className="bg-[#F2D161] border-t rounded-b-xl py-3 px-4 md:py-4 md:px-5 dark:bg-neutral-900 border-[#F2D161]">
-        <p className="mt-1 text-sm text-[#171717]">
-          {createdUpdatedString}
-        </p>
+      <div className="flex items-center justify-between bg-[#F2D161] border-t rounded-b-xl py-3 px-4 md:py-4 md:px-5 dark:bg-neutral-900 border-[#F2D161]">
+        <p className="mt-1 text-sm text-[#171717]">{createdUpdatedString}</p>
+        <div className="flex items-center justify-between gap-2">
+          <button className="text-sm text-gray-700 dark:text-gray-300">
+            <MdEdit color="black" />
+          </button>
+          <button
+            onClick={() => onDelete(id)}
+            className="text-sm text-red-600 dark:text-red-400 ml-2"
+          >
+            <MdDelete />
+          </button>
+        </div>
       </div>
     </div>
   );
