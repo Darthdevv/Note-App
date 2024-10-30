@@ -5,6 +5,7 @@ interface APIMethodHandlerConfig {
   POST?: APIMethodConfig;
   PUT?: APIMethodConfig;
   DELETE?: APIMethodConfig;
+  PATCH?: APIMethodConfig;
 }
 
 interface APIMethodConfig {
