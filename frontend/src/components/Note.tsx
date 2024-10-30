@@ -41,7 +41,7 @@ const Note = ({ note, id, onDelete }: NoteProps) => {
             onClick={() => onDelete(id)}
             className="text-sm text-red-600 dark:text-red-400 ml-2"
           >
-            <MdDelete />
+            <MdDelete color="black" />
           </button>
         </div>
       </div>
