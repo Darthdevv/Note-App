@@ -1,12 +1,22 @@
 import { Link, NavLink } from "react-router-dom";
+import ThemeSwitch from "./Switcher";
+import { useDarkMode } from "../context/DarkModeContext"; // Import the custom hook
 
 const Navbar = () => {
+  // Use the dark mode context
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
+  // Function to handle the change of the theme switch
+  const handleDarkModeChange = () => {
+    toggleDarkMode(); // Call the toggle function from the context
+  };
+
   return (
-    <header className="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-[#F7F18A] border border-[#F2D161] text-sm py-3">
+    <header className="flex flex-wrap sm:justify-start sm:flex-nowrap w-full bg-[#F7F18A] dark:bg-[#0E121A] border border-[#F2D161] dark:border-[#181C27] text-sm py-3">
       <nav className="max-w-[85rem] w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between">
         <div className="flex items-center justify-between">
           <Link
-            className="flex-none text-xl font-semibold text-[black] focus:outline-none focus:opacity-80"
+            className="flex-none text-xl font-semibold text-[black] dark:text-white focus:outline-none focus:opacity-80"
             to="/"
           >
             EverNote
@@ -61,15 +71,16 @@ const Navbar = () => {
           aria-labelledby="hs-navbar-primary-collapse"
         >
           <div className="flex flex-col gap-5 mt-5 sm:flex-row sm:items-center sm:justify-end sm:mt-0 sm:ps-5">
+            <ThemeSwitch checked={isDarkMode} onChange={handleDarkModeChange} />
             <NavLink
-              className="font-medium text-[black] focus:outline-none"
+              className="font-medium text-[black] dark:text-white focus:outline-none"
               to="login"
               aria-current="page"
             >
               Login
             </NavLink>
             <NavLink
-              className="font-medium text-[black]  focus:outline-none "
+              className="font-medium text-[black] dark:text-white focus:outline-none"
               to="register"
             >
               Register
@@ -79,6 +90,6 @@ const Navbar = () => {
       </nav>
     </header>
   );
-}
+};
 
-export default Navbar
+export default Navbar;

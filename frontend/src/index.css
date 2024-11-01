@@ -10,13 +10,28 @@ body{
   font-family: "Inter", sans-serif;
 }
 
+body.dark{
+  background-color: #0E141C;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
 .note {
+  transition: box-shadow .2s ease-in-out;
+  cursor: pointer;
+}
+
+.note.dark {
   transition: box-shadow .2s ease-in-out;
   cursor: pointer;
 }
 
 .note:hover{
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.note.dark:hover{
+  box-shadow: 0 4px 6px rgba(1, 1, 3, 0.4), 0 2px 4px rgba(1, 1, 3, 0.3);
 }
 
 .note-body{

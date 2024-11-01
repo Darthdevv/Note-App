@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { apiClientHandler } from "../utils/ApiMethodHandler";
 import { Note as NoteType } from "../types/note";
+import { MdDeleteOutline } from "react-icons/md";
 import Loader from "./Loader";
 import Note from "./Note";
 
@@ -12,6 +13,7 @@ const Notes = () => {
   const [content, setContent] = useState<string>(""); // State of Note content
   const [isEdit, setIsEdit] = useState<boolean>(false); // State of Modal whether its add or edit
   const [idToBeUpdated, setIdToBeUpdated] = useState<string | null>(null); // Store the note ID for editing
+  const modalContentRef = useRef<HTMLDivElement>(null);
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -19,6 +21,13 @@ const Notes = () => {
 
   const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
+  };
+
+  const resetModal = () => {
+    setTitle("");
+    setContent("");
+    setIsEdit(false);
+    setIdToBeUpdated(null);
   };
 
   // Fetch notes function
@@ -144,6 +153,7 @@ const Notes = () => {
 
       if (apiResponse?.data) {
         GetNotes(); // Refreshes the notes to include the updated note
+        setError(null);
 
         // Close the modal
         const closeButton = document.querySelector(
@@ -187,10 +197,52 @@ const Notes = () => {
     }
   };
 
+  const DeleteAllNotes = async () => {
+    setLoading(true);
+    try {
+      // Send DELETE request to API to delete all notes
+      const apiResponse = await apiClientHandler({
+        DELETE: {
+          endpoint: `api/notes`, // Endpoint should support deleting all notes
+        },
+      })("DELETE");
+
+      if (apiResponse) {
+        GetNotes(); // Refresh notes list to confirm deletion
+      } else {
+        setError("Failed to delete all notes.");
+      }
+    } catch (error) {
+      console.error("Error Deleting All Notes", error);
+      setError("An error occurred while deleting all notes.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
   // Call GetAllNotes when needed (e.g., useEffect or button click)
 
   useEffect(() => {
     GetNotes();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalContentRef.current &&
+        !modalContentRef.current.contains(event.target as Node)
+      ) {
+        resetModal();
+      }
+    };
+
+    // Add event listener when modal is open
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Clean up event listener when modal is closed
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   return (
@@ -198,8 +250,18 @@ const Notes = () => {
       {/* <h1 classNameName="text-start text-white">Notes</h1> */}
       <div className="flex justify-end mr-[17px]">
         <button
+          onClick={() => DeleteAllNotes()}
           type="button"
-          className="py-2 note px-4 inline-flex  gap-x-2 text-xl font-medium rounded-lg border border-transparent bg-[#F2D161] hover:bg-[#ffd54b] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50 disabled:pointer-events-none"
+          className="py-2 note px-4 flex items-center justify-center  gap-x-2 text-xl font-medium rounded-lg border border-[#ff2b2ba1] bg-[#f26161] hover:bg-[#ff3b3b] text-black  focus:outline-none focus:bg-[#ff3b3b] disabled:opacity-50 disabled:pointer-events-none mr-3"
+          aria-haspopup="dialog"
+          aria-expanded="false"
+          aria-controls="hs-focus-management-modal"
+        >
+          <MdDeleteOutline className="text-white" />
+        </button>
+        <button
+          type="button"
+          className="py-2 note px-4 flex items-center justify-center  gap-x-2 text-xl font-medium rounded-lg border border-[#ffd13a] bg-[#F2D161] hover:bg-[#ffd54b] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50 disabled:pointer-events-none"
           aria-haspopup="dialog"
           aria-expanded="false"
           aria-controls="hs-focus-management-modal"
@@ -216,20 +278,24 @@ const Notes = () => {
         tabIndex={-1}
         aria-labelledby="hs-focus-management-modal-label"
       >
-        <div className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto">
+        <div
+          ref={modalContentRef}
+          className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto"
+        >
           <div className="flex flex-col bg-[cornsilk] border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
             <div className="flex justify-between items-center py-3 px-4 border-b border-[#F2D161]">
               <h3
                 id="hs-focus-management-modal-label"
                 className="font-bold text-gray-800 dark:text-white"
               >
-                Add Note
+                {isEdit ? "Edit Note" : "Add Note"}
               </h3>
               <button
                 type="button"
                 className="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-[#F2D161] bg-white text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-400 dark:focus:bg-neutral-600"
                 aria-label="Close"
                 data-hs-overlay="#hs-focus-management-modal"
+                onClick={resetModal} // Reset modal state on close
               >
                 <span className="sr-only">Close</span>
                 <svg
@@ -262,7 +328,7 @@ const Notes = () => {
                 onChange={handleTitleChange}
                 value={title}
                 className="py-3 px-4 block w-full border border-[#F2D161] rounded-lg text-sm focus:border-[#ffd54b] focus:ring-[#ffd54b] dark:bg-neutral-900 dark:placeholder-neutral-500 dark:text-neutral-400"
-                placeholder="you@site.com"
+                placeholder="Enter note title"
                 autoFocus={true}
               />
             </div>
@@ -278,7 +344,7 @@ const Notes = () => {
                 onChange={handleContentChange}
                 value={content}
                 className="py-3 px-4 block w-full border border-[#F2D161] rounded-lg text-sm focus:border-[#ffd54b] focus:ring-[#ffd54b] dark:bg-neutral-90 dark:placeholder-neutral-500 dark:text-neutral-400"
-                placeholder="you@site.com"
+                placeholder="Write your thoughts here..."
                 autoFocus={true}
               />
             </div>
@@ -287,6 +353,7 @@ const Notes = () => {
                 type="button"
                 className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-[#F2D161] bg-white text-black shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                 data-hs-overlay="#hs-focus-management-modal"
+                onClick={resetModal} // Reset modal state on close
               >
                 Close
               </button>
@@ -299,7 +366,7 @@ const Notes = () => {
                 type="button"
                 className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[#F2D161] hover:bg-[#ffd54b] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50 disabled:pointer-events-none"
               >
-                {isEdit ? "Edit" : "Add"}
+                {isEdit ? "Update" : "Add"}
               </button>
             </div>
           </div>
