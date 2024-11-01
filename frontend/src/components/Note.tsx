@@ -41,8 +41,10 @@ const Note = ({ note, id, onDelete, onEdit, onFetch }: NoteProps) => {
           {content}
         </p>
       </div>
-      <div className="flex items-center justify-between bg-[#F2D161] dark:border-[#181C27] border-t rounded-b-xl py-3 px-4 md:py-4 md:px-5 dark:bg-[#151923] border-[#F2D161] dark:text-[#171C23]">
-        <p className="mt-1 text-sm text-[rgba(255,255,255,0.5)]">{createdUpdatedString}</p>
+      <div className="flex items-center justify-between bg-[#F2D161] dark:border-[#181C27] border-t rounded-b-xl py-3 px-4 md:py-4 md:px-5 dark:bg-[#151923] border-[#F2D161] ">
+        <p className="mt-1 text-sm dark:text-[rgba(255,255,255,0.5)] text-[rgba(0,0,0,0.5)]">
+          {createdUpdatedString}
+        </p>
         <div className="flex items-center gap-1">
           <button
             onClick={handleEditClick}
