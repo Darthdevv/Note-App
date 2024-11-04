@@ -24,7 +24,7 @@ const Navbar = () => {
           <div className="sm:hidden">
             <button
               type="button"
-              className="hs-collapse-toggle relative size-7 flex justify-center items-center gap-2 rounded-lg border border-[#F2D161] font-medium bg-[#F7F18A] text-[black] shadow-sm align-middle focus:outline-none text-sm"
+              className="hs-collapse-toggle relative size-7 flex justify-center items-center gap-2 rounded-lg border border-[#F2D161] dark:border-[#1f2533] font-medium bg-[#F7F18A] dark:bg-[#181C27] text-black dark:text-white shadow-sm align-middle focus:outline-none text-sm"
               id="hs-navbar-primary-collapse"
               aria-expanded="false"
               aria-controls="hs-navbar-primary"

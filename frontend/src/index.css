@@ -46,17 +46,18 @@ body.dark{
 }
 
 ::-webkit-scrollbar-track {
-  background: cornsilk;           /* Background color of the scrollbar track */
+  background: #0E141C;           /* Background color of the scrollbar track */
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #F2D161;     /* Color of the scrollbar thumb */
+  background-color: #0E141C;     /* Color of the scrollbar thumb */
   border-radius: 20px;        /* High border-radius for pill shape */
-  border: 2px solid cornsilk;     /* Optional padding around the thumb */
+  border: 2px solid white;     /* Optional padding around the thumb */
 }
 
 /* For Firefox */
 * {
   scrollbar-width: thin;      /* Makes the scrollbar thinner */
-  scrollbar-color: #F2D161 cornsilk; /* Thumb color and track color */
+  scrollbar-color: white #0E141C ; /* Thumb color and track color */
 }
+

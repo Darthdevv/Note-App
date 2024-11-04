@@ -4,6 +4,7 @@ import { Note as NoteType } from "../types/note";
 import { MdDeleteOutline } from "react-icons/md";
 import Loader from "./Loader";
 import Note from "./Note";
+import { useDarkMode } from "../context/DarkModeContext";
 
 const Notes = () => {
   const [notes, setNotes] = useState<NoteType[]>([]); // State to hold notes
@@ -14,6 +15,9 @@ const Notes = () => {
   const [isEdit, setIsEdit] = useState<boolean>(false); // State of Modal whether its add or edit
   const [idToBeUpdated, setIdToBeUpdated] = useState<string | null>(null); // Store the note ID for editing
   const modalContentRef = useRef<HTMLDivElement>(null);
+
+  // Use the dark mode context
+  const { isDarkMode } = useDarkMode();
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
@@ -220,7 +224,6 @@ const Notes = () => {
     }
   };
 
-
   // Call GetAllNotes when needed (e.g., useEffect or button click)
 
   useEffect(() => {
@@ -252,16 +255,18 @@ const Notes = () => {
         <button
           onClick={() => DeleteAllNotes()}
           type="button"
-          className="py-2 note px-4 flex items-center justify-center  gap-x-2 text-xl font-medium rounded-lg border border-[#ff2b2ba1] bg-[#f26161] hover:bg-[#ff3b3b] text-black  focus:outline-none focus:bg-[#ff3b3b] disabled:opacity-50 disabled:pointer-events-none mr-3"
+          className="py-2 note px-4 flex items-center justify-center  gap-x-2 text-xl font-medium rounded-lg border dark:border-[#1f2533] border-[#ff2b2ba1] bg-[#f26161] hover:bg-[#ff3b3b] dark:bg-[#181C27] text-black dark:text-[#f26161]  focus:outline-none focus:bg-[#ff3b3b] disabled:opacity-50 disabled:pointer-events-none mr-3"
           aria-haspopup="dialog"
           aria-expanded="false"
           aria-controls="hs-focus-management-modal"
         >
-          <MdDeleteOutline className="text-white" />
+          <MdDeleteOutline
+            className={isDarkMode ? "text-[#f26161]" : "text-white"}
+          />
         </button>
         <button
           type="button"
-          className="py-2 note px-4 flex items-center justify-center  gap-x-2 text-xl font-medium rounded-lg border border-[#ffd13a] bg-[#F2D161] hover:bg-[#ffd54b] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50 disabled:pointer-events-none"
+          className="py-2 note px-4 flex items-center justify-center  gap-x-2 text-xl font-medium rounded-lg border border-[#ffd13a] dark:border-[#1f2533] bg-[#F2D161] dark:bg-[#181C27] hover:bg-[#ffd54b] text-black dark:text-white  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50 disabled:pointer-events-none"
           aria-haspopup="dialog"
           aria-expanded="false"
           aria-controls="hs-focus-management-modal"
