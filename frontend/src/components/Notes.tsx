@@ -287,8 +287,8 @@ const Notes = () => {
           ref={modalContentRef}
           className="hs-overlay-open:mt-7 hs-overlay-open:opacity-100 hs-overlay-open:duration-500 mt-0 opacity-0 ease-out transition-all sm:max-w-lg sm:w-full m-3 sm:mx-auto"
         >
-          <div className="flex flex-col bg-[cornsilk] border shadow-sm rounded-xl pointer-events-auto dark:bg-neutral-800 dark:border-neutral-700 dark:shadow-neutral-700/70">
-            <div className="flex justify-between items-center py-3 px-4 border-b border-[#F2D161]">
+          <div className="flex flex-col bg-[cornsilk] border shadow-sm rounded-xl pointer-events-auto dark:bg-[#181C27] dark:border-[#1f2533] dark:shadow-neutral-700/70">
+            <div className="flex justify-between items-center py-3 px-4 border-b border-[#F2D161] dark:border-[#1f2533]">
               <h3
                 id="hs-focus-management-modal-label"
                 className="font-bold text-gray-800 dark:text-white"
@@ -297,7 +297,7 @@ const Notes = () => {
               </h3>
               <button
                 type="button"
-                className="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-[#F2D161] bg-white text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-700 dark:hover:bg-neutral-600 dark:text-neutral-400 dark:focus:bg-neutral-600"
+                className="size-8 inline-flex justify-center items-center gap-x-2 rounded-full border border-[#F2D161] dark:border-[#1f2533] bg-white text-gray-800 hover:bg-gray-200 focus:outline-none focus:bg-gray-200 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:hover:bg-neutral-600 dark:text-neutral-400 dark:focus:bg-neutral-600"
                 aria-label="Close"
                 data-hs-overlay="#hs-focus-management-modal"
                 onClick={resetModal} // Reset modal state on close
@@ -332,7 +332,7 @@ const Notes = () => {
                 id="input-label"
                 onChange={handleTitleChange}
                 value={title}
-                className="py-3 px-4 block w-full border border-[#F2D161] rounded-lg text-sm focus:border-[#ffd54b] focus:ring-[#ffd54b] dark:bg-neutral-900 dark:placeholder-neutral-500 dark:text-neutral-400"
+                className="py-3 px-4 block w-full border border-[#F2D161] dark:border-[#1f2533] rounded-lg text-sm focus:border-[#ffd54b] focus:ring-[#ffd54b] dark:bg-[#181C27] dark:placeholder-neutral-500 dark:text-neutral-400"
                 placeholder="Enter note title"
                 autoFocus={true}
               />
@@ -348,15 +348,15 @@ const Notes = () => {
                 id="input-label"
                 onChange={handleContentChange}
                 value={content}
-                className="py-3 px-4 block w-full border border-[#F2D161] rounded-lg text-sm focus:border-[#ffd54b] focus:ring-[#ffd54b] dark:bg-neutral-90 dark:placeholder-neutral-500 dark:text-neutral-400"
+                className="py-3 px-4 block w-full border border-[#F2D161] dark:border-[#1f2533] rounded-lg text-sm focus:border-[#ffd54b] focus:ring-[#ffd54b] dark:bg-[#181C27] dark:placeholder-neutral-500 dark:text-neutral-400"
                 placeholder="Write your thoughts here..."
                 autoFocus={true}
               />
             </div>
-            <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t border-[#F2D161]">
+            <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t border-[#F2D161] dark:border-[#1f2533]">
               <button
                 type="button"
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-[#F2D161] bg-white text-black shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-[#F2D161]  bg-white text-black shadow-sm hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
                 data-hs-overlay="#hs-focus-management-modal"
                 onClick={resetModal} // Reset modal state on close
               >
@@ -369,7 +369,7 @@ const Notes = () => {
                   isEdit ? EditNote(idToBeUpdated as string) : AddNote();
                 }}
                 type="button"
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[#F2D161] hover:bg-[#ffd54b] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50 disabled:pointer-events-none"
+                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[#F2D161] dark:bg-[#fff] hover:bg-[#ffd54b] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50 disabled:pointer-events-none"
               >
                 {isEdit ? "Update" : "Add"}
               </button>
