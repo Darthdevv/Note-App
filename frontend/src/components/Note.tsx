@@ -37,7 +37,11 @@ const Note = ({ note, id, onDelete, onEdit, onFetch }: NoteProps) => {
         <h3 className="text-lg font-bold text-gray-800 dark:text-white">
           {title}
         </h3>
-        <p className="mt-2 h-[100px] text-gray-500 dark:text-neutral-400 whitespace-pre-line">
+        <p
+          className={`mt-2 h-[100px] note-body ${
+            isDarkMode ? "dark" : ""
+          } text-gray-500 dark:text-neutral-400 whitespace-pre-line`}
+        >
           {content}
         </p>
       </div>

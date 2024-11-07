@@ -348,7 +348,7 @@ const Notes = () => {
                 id="input-label"
                 onChange={handleContentChange}
                 value={content}
-                className="py-3 px-4 block w-full border border-[#F2D161] dark:border-[#1f2533] rounded-lg text-sm focus:border-[#ffd54b] focus:ring-[#ffd54b] dark:bg-[#181C27] dark:placeholder-neutral-500 dark:text-neutral-400"
+                className="py-3 px-4 block w-full h-[90px] border border-[#F2D161] dark:border-[#1f2533] rounded-lg text-sm focus:border-[#ffd54b] focus:ring-[#ffd54b] dark:bg-[#181C27] dark:placeholder-neutral-500 dark:text-neutral-400"
                 placeholder="Write your thoughts here..."
                 autoFocus={true}
               />
@@ -381,6 +381,10 @@ const Notes = () => {
         <Loader /> // Show loading state
       ) : error ? (
         <p>{error}</p> // Show error if any
+      ) : notes.length === 0 ? (
+        <p className={`text-center ${isDarkMode ? "text-gray-500" : "text-black"} mt-6`}>
+          You don't have any notes yet. Start by adding one!
+        </p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 m-4">
           {notes.map((note) => (
