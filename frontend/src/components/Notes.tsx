@@ -350,7 +350,6 @@ const Notes = () => {
                 value={content}
                 className="py-3 px-4 block w-full h-[90px] border border-[#F2D161] dark:border-[#1f2533] rounded-lg text-sm focus:border-[#ffd54b] focus:ring-[#ffd54b] dark:bg-[#181C27] dark:placeholder-neutral-500 dark:text-neutral-400"
                 placeholder="Write your thoughts here..."
-                autoFocus={true}
               />
             </div>
             <div className="flex justify-end items-center gap-x-2 py-3 px-4 border-t border-[#F2D161] dark:border-[#1f2533]">
@@ -369,7 +368,8 @@ const Notes = () => {
                   isEdit ? EditNote(idToBeUpdated as string) : AddNote();
                 }}
                 type="button"
-                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[#F2D161] dark:bg-[#fff] hover:bg-[#ffd54b] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50 disabled:pointer-events-none"
+                className="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[#F2D161] dark:bg-[#fff] hover:bg-[#ffd54b] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50  disabled:cursor-not-allowed"
+                disabled={!title || !content}
               >
                 {isEdit ? "Update" : "Add"}
               </button>
@@ -382,7 +382,11 @@ const Notes = () => {
       ) : error ? (
         <p>{error}</p> // Show error if any
       ) : notes.length === 0 ? (
-        <p className={`text-center ${isDarkMode ? "text-gray-500" : "text-black"} mt-6`}>
+        <p
+          className={`text-center ${
+            isDarkMode ? "text-gray-500" : "text-black"
+          } mt-6`}
+        >
           You don't have any notes yet. Start by adding one!
         </p>
       ) : (
