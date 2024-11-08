@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   signUp,
   signIn,
-  // getUserAccounts,
+  getUserAccounts,
   // getSpecificUserAccount,
   // deleteAccount,
   // updateAccount,
@@ -22,5 +22,6 @@ const router = Router();
 
 router.route("/signup").post(signUp);
 router.route("/signin").post(signIn);
+router.route("/").get( getUserAccounts);
 
 export default router;

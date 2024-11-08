@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs";
 import appError from "../utils/appError.js";
 import { catchAsync } from "../helpers/catchAsync";
 import APIFeatures from "../utils/apiFeatures.js";
+import { ParsedQs } from "qs";
 
 /**
  * @param {object} req
@@ -135,24 +136,36 @@ export const signIn = catchAsync(
  * @description retreiving (reading) all users from database.
  **/
 
-// export const getUserAccounts = catchAsync(async (req, res, next) => {
-//   const features = new APIFeatures(User.find().select("-password"), req.query)
-//     .filter()
-//     .sort()
-//     .paginate();
-//   const users = await features.query;
+interface GetUserAccountsRequest extends Request {
+  query: ParsedQs; // Use ParsedQs instead of any
+  requestTime?: string; // Assuming requestTime is added to req in middleware
+}
 
-//   if (!users) {
-//     return next(new appError("No Users Found", 404));
-//   }
 
-//   res.status(200).json({
-//     status: "success",
-//     requestedAt: req.requestTime,
-//     results: users.length,
-//     data: { users },
-//   });
-// });
+export const getUserAccounts = catchAsync(
+  async (req: GetUserAccountsRequest, res: Response, next: NextFunction) => {
+    // Use APIFeatures with User model query and request query parameters
+    const features = new APIFeatures(User.find().select("-password"), req.query)
+      .filter()
+      .sort()
+      .paginate();
+
+    const users = await features.query;
+
+    // Check if any users were found
+    if (!users || users.length === 0) {
+      return next(new appError("No Users Found", 404));
+    }
+
+    // Respond with user data
+    res.status(200).json({
+      status: "success",
+      requestedAt: req.requestTime,
+      results: users.length,
+      data: { users },
+    });
+  }
+);
 
 /**
  * @param {object} req
