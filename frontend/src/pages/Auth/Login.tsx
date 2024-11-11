@@ -1,7 +1,9 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { z } from "zod";
+import { apiClientHandler } from "../../utils/ApiMethodHandler";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 // Define validation schema
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -13,6 +15,8 @@ const schema = z.object({
 type FormFields = z.infer<typeof schema>;
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { isDarkMode } = useDarkMode();
   const {
     register,
     setError,
@@ -22,7 +26,21 @@ const Login = () => {
 
   const submit: SubmitHandler<FormFields> = async (data) => {
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+        const apiResponse = await apiClientHandler({
+          POST: {
+            endpoint: `api/users/signin`, // Replace with your actual endpoint
+            body: {
+              email: data.email,
+              password: data.password,
+            },
+          },
+        })("POST");
+
+        if (apiResponse?.data) {
+          navigate('/');
+        } else {
+          console.log('failed to login');
+        }
       console.log(data);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
@@ -65,7 +83,10 @@ const Login = () => {
         <div className="py-2">
           <p className="dark:text-white/50 text-[#121212]">
             Don’t have an account?{" "}
-            <Link className="dark:text-white text-black font-semibold ml-2 hover:underline" to={"/register"}>
+            <Link
+              className="dark:text-white text-black font-semibold ml-2 hover:underline"
+              to={"/register"}
+            >
               Sign up
             </Link>
           </p>
@@ -76,7 +97,11 @@ const Login = () => {
           type="submit"
           className="w-full py-3 px-3 gap-x-2 text-sm font-medium rounded-lg border border-[#dcb842] bg-[#F2D161] dark:bg-[#fff] hover:bg-[#ffd54b] dark:hover:bg-[#d4d4d4] text-black focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50"
         >
-          {isSubmitting ? <ClipLoader size={20} color="#FFF" /> : "Login"}
+          {isSubmitting ? (
+            <ClipLoader size={20} color={isDarkMode ? "#0E141C" : "#000"} />
+          ) : (
+            "Login"
+          )}
         </button>
 
         {errors.root && (

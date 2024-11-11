@@ -380,7 +380,13 @@ const Notes = () => {
       {loading ? (
         <Loader /> // Show loading state
       ) : error ? (
-        <p>{error}</p> // Show error if any
+        <p
+          className={`text-center ${
+            isDarkMode ? "text-gray-500" : "text-black"
+          } mt-6`}
+        >
+          {error}
+        </p> // Show error if any
       ) : notes.length === 0 ? (
         <p
           className={`text-center ${
