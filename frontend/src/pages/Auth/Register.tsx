@@ -1,4 +1,5 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { z } from "zod";
 
@@ -39,7 +40,7 @@ const Register = () => {
         className="w-full max-w-md p-8 space-y-4 bg-[#F7F18A] dark:bg-[#181C27] rounded-lg shadow-lg"
       >
         <h2 className="text-2xl font-semibold text-center text-black dark:text-white">
-          Register
+          Create {" "}  Account
         </h2>
 
         <input
@@ -72,12 +73,22 @@ const Register = () => {
           <div className="text-sm text-red-500">{errors.password.message}</div>
         )}
 
-        <p className="text-white">Already have an Account? Sign in</p>
+        <div className="py-2">
+          <p className="dark:text-white/50 text-[#121212]">
+            Already have an Account?{" "}
+            <Link
+              className="dark:text-white text-black font-semibold ml-2 hover:underline"
+              to={"/login"}
+            >
+              Sign in
+            </Link>
+          </p>
+        </div>
 
         <button
           disabled={isSubmitting}
           type="submit"
-          className="w-full py-3 px-3  gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-[#F2D161] dark:bg-[#fff] hover:bg-[#ffd54b] dark:hover:bg-[#d4d4d4] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50"
+          className="w-full py-3 px-3  gap-x-2 text-sm font-medium rounded-lg border border-[#dcb842] bg-[#F2D161] dark:bg-[#fff] hover:bg-[#ffd54b] dark:hover:bg-[#d4d4d4] text-black  focus:outline-none focus:bg-[#ffd54b] disabled:opacity-50"
         >
           {isSubmitting ? <ClipLoader size={20} color="#FFF" /> : "Register"}
         </button>

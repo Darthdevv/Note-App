@@ -29,6 +29,7 @@ const Note = ({ note, id, onDelete, onEdit, onFetch }: NoteProps) => {
 
   return (
     <div
+      onClick={handleEditClick}
       className={`note ${
         isDarkMode ? "dark" : ""
       } flex flex-col justify-between min-w-[150px] bg-[#F7F18A] border shadow-sm rounded-xl dark:bg-[#181C27] border-[#F2D161] dark:border-[#181C27] dark:shadow-neutral-700/70`}
